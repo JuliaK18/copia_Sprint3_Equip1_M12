@@ -122,3 +122,6 @@ ALTER TABLE `Notificacio` ADD FOREIGN KEY (`IdRetweet`) REFERENCES `Retweet` (`I
 ALTER TABLE `Notificacio` ADD FOREIGN KEY (`IdUsuari`) REFERENCES `Usuari` (`Id`);
 
 ALTER TABLE `Notificacio` ADD FOREIGN KEY (`IdMagrada`) REFERENCES `Magrada` (`Id`);
+
+
+INSERT INTO `TipusUsuari` (`TipusUsuari`) VALUES ('Normal'), ('Moderador'), ('Admin');
