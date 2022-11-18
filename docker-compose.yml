@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+   php-httpd:
+      image: php:8.1-apache
+      ports:
+         - 88:80
+      volumes:
+         - "./Web:/var/www/html"
+
+   # Necessari per tenir mysqli sense crear imatge pròpia
+      command: "/bin/sh -c 'docker-php-ext-install mysqli && exec apache2-foreground'" 
+         
+   mariadb:
+      image: mariadb:10.6
+      volumes:
+         - "./database:/var/lib/mysql"
+      environment:
+         TZ: "Europe/Madrid"
+         MYSQL_ROOT_PASSWORD: "MirMeetCool12"
+         MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+         MYSQL_DATABASE: 'MirMeet'
+         MYSQL_USER: 'super'
+         MYSQL_PASSWORD: 'MirMeet12'
+
+   phpmyadmin:
+      image: phpmyadmin
+      ports:
+         - 8080:80
+      links:
+         - 'mariadb:db'
+         
+   node:
+      image: node
+      tty: true

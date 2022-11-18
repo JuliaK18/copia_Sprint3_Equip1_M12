@@ -1,0 +1,21 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
+#header{
+    height: 15vh;
+}
+
+#container{
+    min-height: 70vh;
+}
+
+#recovery{
+    color: black;
+    padding-bottom: 5%;
+}
+
+#footer{
+    height: 15vh;
+}

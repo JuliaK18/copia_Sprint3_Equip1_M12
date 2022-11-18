@@ -1,0 +1,26 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
+#header{
+    height: 15vh;
+}
+
+#buttons{
+    display: flex;
+    justify-content: end;
+    margin: 1%;
+}
+
+#container{
+    display: flex;
+    height: 70vh;
+    align-items: center;
+    justify-content: left;
+
+}
+
+#footer{
+    height: 15vh;
+}
