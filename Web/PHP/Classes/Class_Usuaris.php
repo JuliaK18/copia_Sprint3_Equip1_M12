@@ -18,18 +18,14 @@ class Usuari {
     private $hash_verificacio_email;
     private $hash_recuperacio_contrasenya;
     
-    public function __construct($id) {
-		$params = func_get_args(); // paràmetres
-		$num_params = func_num_args(); // nombre de paràmetres
-
-        // Construïm el nom de la funció
-		$funcion_constructor ='__construct'.$num_params;
-		// Si existeix
-		if (method_exists($this,$funcion_constructor)) {
-			// Cridem la funció
-			call_user_func_array(array($this,$funcion_constructor),$params);
-		}
-    }
+    public function __construct() {
+        $arguments = func_get_args();
+        $numberOfArguments = func_num_args();
+    
+        if (method_exists($this, $function = '__construct'.$numberOfArguments)) {
+            call_user_func_array(array($this, $function), $arguments);
+        }
+      }
 
     public function __construct1($id) {
         $this->id = $id;
@@ -44,6 +40,9 @@ class Usuari {
         $this->nom_usuari = $nom_usuari;
         $this->email = $email;
         $this->contrasenya = $contrasenya;
+    }
+    public function __construct4($verificat) {
+        $this->verificat = $verificat;
     }
 
     public function create() {
@@ -188,8 +187,28 @@ class Usuari {
         // Si hi ha usuaris, retornem la llista. Del contrari, retornarem false
         return ($result->num_rows > 0) ? $result->fetch_all(MYSQLI_ASSOC) : false;
     }
-}
+    
+    public function update_verify_user($id){
+        include_once '../connect.php';
+        //Establim la consula a la base de dades
+        $sql = "UPDATE `Usuari` SET `Verificat` = '1' WHERE `Usuari`.`Id` = $id";
+        //Executem la consulta
+        $query_run = mysqli_query($conn, $sql);
+        mysqli_close($conn);
+        
+    }
+    public function check_verify_user($verificat){
+        include_once '../connect.php';
+        //Establim la consula a la base de dades
+        $sql = "SELECT Usuari.NomUsuari, Usuari.Verificat FROM `Usuari` WHERE Verificat = $verificat";
+        //Executem la consulta
+        $query_run = mysqli_query($conn, $sql);
+        mysqli_close($conn);
+        return $conn->query($sql);        
 
+    }
+
+}
 
 
 ?>
