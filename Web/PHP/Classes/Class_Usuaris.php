@@ -174,7 +174,7 @@ class Usuari {
 
 
     }
-
+// ,ètode Aleix
     public static function get_users_not_verified() {
         include_once '../../PHP/connect.php';
 
@@ -188,7 +188,7 @@ class Usuari {
         return ($result->num_rows > 0) ? $result->fetch_all(MYSQLI_ASSOC) : false;
     }
     
-    public function update_verify_user($id){
+    public function update_to_verify_user($id){
         include_once '../connect.php';
         //Establim la consula a la base de dades
         $sql = "UPDATE `Usuari` SET `Verificat` = '1' WHERE `Usuari`.`Id` = $id";
@@ -197,18 +197,41 @@ class Usuari {
         mysqli_close($conn);
         
     }
-    public function check_verify_user($verificat){
-        include_once '../connect.php';
+
+    public function update_to_not_verify_user($id){
+        include_once '../../PHP/connect.php';
         //Establim la consula a la base de dades
-        $sql = "SELECT Usuari.NomUsuari, Usuari.Verificat FROM `Usuari` WHERE Verificat = $verificat";
+        $sql = "UPDATE `Usuari` SET `Verificat` = '0' WHERE `Usuari`.`Id` = $id";
         //Executem la consulta
         $query_run = mysqli_query($conn, $sql);
         mysqli_close($conn);
-        return $conn->query($sql);        
+        die();
+
+        
+    }
+
+    public static function check_verify_user(){
+        include_once '../../PHP/connect.php';
+        //Establim la consula a la base de dades
+        $sql = "SELECT Usuari.NomUsuari, Usuari.Verificat FROM `Usuari` WHERE Verificat = 1;"        ;
+        //Executem la consulta
+        $query_run = mysqli_query($conn, $sql);
+        mysqli_close($conn);
+        return $query_run;    
+
+    }
+
+    public static function check_not_verify_user(){
+        include_once '../../PHP/connect.php';
+        
+        //Establim la consula a la base de dades
+        $sql = "SELECT Usuari.NomUsuari, Usuari.Verificat FROM `Usuari` WHERE Verificat = 0";
+
+        $query_run = mysqli_query($conn, $sql);
+        mysqli_close($conn);
+        return $query_run;     
 
     }
 
 }
-
-
 ?>
