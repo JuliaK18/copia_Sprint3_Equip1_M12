@@ -25,6 +25,8 @@
     <div class="container-fluid d-flex align-items-center justify-content-center" id="container">
       <div class="row d-flex justify-content-center">
         <form class="col-10 col-sm-10 col-md-12 col-lg-12 col-xl-12 col-xxl-12" action="../../PHP/login.php" method="post">
+          <div id="buttonDiv" onclick="client.requestCode()"></div> 
+        
           <div class="tittle">
             <img src="../icons/mirmit.png" alt="" style="height: auto; width: 100%" />
           </div>
@@ -67,6 +69,32 @@
   <footer id="footer"></footer>
 
   <script src="script.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+        function handleCredentialResponse(response) {
+          $.ajax({
+            url: 'http://localhost:88/PHP/logingoogle.php',
+            method: 'POST',
+            data: 'token=' + response.credential,
+            success: (res) => {
+              //window.location = 'index.php'
+              console.log(response.credential)
+              console.log(res)
+            }
+          })
+        }
+        window.onload = function () {
+          google.accounts.id.initialize({
+            client_id: "822015483698-5d28u0rfk1359t6tpn2trni7a9b66u1d.apps.googleusercontent.com",
+            callback: handleCredentialResponse
+          });
+          google.accounts.id.renderButton(
+            document.getElementById("buttonDiv"),
+            { theme: "outline", size: "large" }  // customization attributes
+          );
+        }
+    </script>
   <?php 
   // Ensenyem els missatges d'error en cas necessari
     if (isset($_GET['error'])) {

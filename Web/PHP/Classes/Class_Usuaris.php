@@ -31,8 +31,12 @@ class Usuari {
 		}
     }
 
-    public function __construct1($id) {
-        $this->id = $id;
+    public function __construct1($input) {
+        if (is_int($input)) {
+            $this->id = $input;
+        } else {
+            $this->email = $input;
+        }
     }
 
     public function __construct2($nom_usuari, $contrasenya) {
@@ -174,6 +178,34 @@ class Usuari {
         $existsResult = $existsQuery->get_result();
 
 
+    }
+
+    public function exists_user() {
+        include 'connect.php';
+
+        // Recuperem la informació necessària 
+        $email = $this->email;
+
+        // Busquem l'email a la nostra base de dades amb la següent sentència
+        $existsQuery = $conn->prepare("SELECT CorreuElectronic FROM Usuari WHERE CorreuElectronic = ?");
+        $existsQuery->bind_param('s', $email);
+        $existsQuery->execute();
+
+        // Executem la sentència i guardem el resultat a una variable
+        return $existsQuery->get_result()->num_rows > 0;
+    }
+
+    public function create_user_from_google() {
+        // Connectem a la base de dades
+        include 'connect.php';
+
+        // Recuperem la informació necessària
+        $email = $this->email;
+
+        // Fes un insert d'aquest usuari i torna true
+        $insertQuery = $conn->prepare("INSERT INTO Usuari (CorreuElectronic, IdTipusUsuari, Acceptat) VALUES (?, 1, 0)");
+        $insertQuery->bind_param('s', $email);
+        return $insertQuery->execute();
     }
 
     public static function get_users_not_verified() {
