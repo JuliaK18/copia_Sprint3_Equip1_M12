@@ -14,7 +14,7 @@
     <title>MirMeet</title>
 </head>
 
-<body style="background-color:rgba(223, 190, 130, 0.651);">
+<body style="background-color:rgba(255, 248, 235, 0.322);">
 
     <div class="imagen mt-5" align="center">
       <img class="imagen"
@@ -22,19 +22,28 @@
         height="100">
     </div>
     <div class="cambiar-foto">
-        <p style="line-height: 30px;">Nombre de usuario</p>
-        <a href="#cambiar-foto-perfil">Cambiar foto de perfil</a>
+        <p style="line-height: 30px;">Nombre de usuario aqui</p>
     </div>
 
     <hr class="linea">
 
-    <form id="form" action="#">
+    <form class="col-10 col-sm-10 col-md-12 col-lg-12 col-xl-12 col-xxl-12" action="../../PHP/usermodify.php" method="post">
         <div class="contenedor-perfil" align="center">
-            <div class="w-25" align="center" >
-              <input class="mb-3 form-control" id="usermail" type="text" placeholder="Correo electronicó">
-              <input class="mb-3 form-control" id="userpassword" type="pasword" placeholder="Contraseña">
-              <input class="mb-3 form-control" id="userpassword2" type="pasword" placeholder="Confirmar contraseña">
-              <input class="mt-3 rounded-pill btn btn-light" id="guardar-cambios" type="submit" onclick="guardar_cambios()" value="GUARDAR">
+            <div class="w-25">
+              <div class="input-group form-group pt-5 mb-5">
+                <span class="input-group-text" id="addon-wrapping"><i class="fa fa-user"></i></span>
+                <input type="text" class="form-control" placeholder="Correo nuevo" name="usermail" aria-label="Username" aria-describedby="addon-wrapping" />
+              </div>
+    
+              <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="addon-wrapping"><i class="fa fa-lock"></i></span>
+                <input type="password" class="form-control" placeholder="Contraseña" name="password" aria-label="Password" aria-describedby="addon-wrapping" />
+              </div>
+              <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="addon-wrapping"><i class="fa fa-lock"></i></span>
+                <input type="password" class="form-control" placeholder="Confirmar contraseña" name="password2" aria-label="Password" aria-describedby="addon-wrapping" />
+              </div>
+            </div>
         </div>
     </form>
 </body>

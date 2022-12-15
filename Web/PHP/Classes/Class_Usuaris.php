@@ -193,18 +193,41 @@ class Usuari {
         //Establim la consula a la base de dades
         $sql = "UPDATE `Usuari` SET `Verificat` = '1' WHERE `Usuari`.`Id` = $id";
         //Executem la consulta
-        $query_run = mysqli_query($conn, $sql);
-        mysqli_close($conn);
-        
+        $query_run = $conn->query($sql);
+       
+        mysqli_close($conn); 
     }
     public function check_verify_user($verificat){
         include_once '../connect.php';
         //Establim la consula a la base de dades
         $sql = "SELECT Usuari.NomUsuari, Usuari.Verificat FROM `Usuari` WHERE Verificat = $verificat";
         //Executem la consulta
-        $query_run = mysqli_query($conn, $sql);
+        $query_run = $conn->query($sql);
         mysqli_close($conn);
-        return $conn->query($sql);        
+        return $query_run;     
+    }
+
+    public function change_mail($usermail){
+        include_once '../connect.php';
+        //Establim la consula a la base de dades
+        $sql = "UPDATE Usuari SET Usuari.CorreuElectronic = $usermail WHERE Usuari.Id = $this->id;";
+        //Executem la consulta
+        $query_run = $conn->query($sql);
+        mysqli_close($conn);
+        return $query_run;
+
+    }
+
+    public function change_password($password){
+        include_once '../connect.php';
+
+        $password = password_hash($password, PASSWORD_DEFAULT);
+        //Establim la consula a la base de dades
+        $sql = "UPDATE Usuari SET Usuari.Contrasenya = $password WHERE Usuari.Id = $this->id;";
+        //Executem la consulta
+        $query_run = $conn->query($sql); 
+        mysqli_close($conn);
+        return $query_run;
 
     }
 
