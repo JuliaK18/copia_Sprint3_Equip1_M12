@@ -244,9 +244,9 @@ class Usuari {
     }
 
     public function change_mail($usermail){
-        include_once '../connect.php';
+        include '../PHP/connect.php';
         //Establim la consula a la base de dades
-        $sql = "UPDATE Usuari SET Usuari.CorreuElectronic = $usermail WHERE Usuari.Id = $this->id;";
+        $sql = "UPDATE Usuari SET Usuari.CorreuElectronic = '$usermail' WHERE Usuari.Id = $this->id;";
         //Executem la consulta
         $query_run = $conn->query($sql);
         mysqli_close($conn);
@@ -255,15 +255,15 @@ class Usuari {
     }
 
     public function change_password($password){
-        include_once '../connect.php';
+        include '../PHP/connect.php';
 
         $password = password_hash($password, PASSWORD_DEFAULT);
         //Establim la consula a la base de dades
-        $sql = "UPDATE Usuari SET Usuari.Contrasenya = $password WHERE Usuari.Id = $this->id;";
+        $sql = "UPDATE Usuari SET Usuari.Contrasenya = '$password' WHERE Usuari.Id = $this->id;";
         //Executem la consulta
         $query_run = $conn->query($sql); 
         mysqli_close($conn);
-        return $conn->query($sql);        
+        return $query_run;        
 
     }
 
