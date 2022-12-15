@@ -36,6 +36,7 @@ include_once "../../PHP/Classes/Class_Usuaris.php";
             <div class="modal-body">  <!-- Finestra que mostra usuaris que sol·liciten la verificació -->
 
               <!-- Mostrar usuaris no verificats-->
+              <h4>Usuaris no verificats</h4>
               <?php
             $consulta = Usuari::get_users_not_verified2();
             while ($mostrar = mysqli_fetch_array($consulta)) {
