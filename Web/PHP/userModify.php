@@ -3,7 +3,8 @@ include_once './Classes/Class_Usuaris.php';
 
 $usermail = $_POST['usermail'];
 $password = $_POST['password'];
-$ID = $_POST['userid'];
+#$ID = $_POST['userid'];
+$ID = 1; #hardcoded
 
 
 $usuari = new Usuari($ID);
