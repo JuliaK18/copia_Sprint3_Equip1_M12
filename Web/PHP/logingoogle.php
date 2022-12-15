@@ -21,6 +21,7 @@ if ($payload) {
     if ($user->exists_user()) {
         echo 'exists';
     } else {
+        // Si l'usuari no existeix, crea'l
         $user->create_user_from_google();
     }
 
