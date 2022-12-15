@@ -78,7 +78,7 @@
             method: 'POST',
             data: 'token=' + response.credential,
             success: (res) => {
-              //window.location = 'index.php'
+              window.location = '../Who'
               console.log(response.credential)
               console.log(res)
             }

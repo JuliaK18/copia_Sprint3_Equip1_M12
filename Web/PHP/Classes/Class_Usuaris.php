@@ -274,30 +274,6 @@ class Usuari {
         return $query_run;     
     }
 
-    public function change_mail($usermail){
-        include_once '../connect.php';
-        //Establim la consula a la base de dades
-        $sql = "UPDATE Usuari SET Usuari.CorreuElectronic = $usermail WHERE Usuari.Id = $this->id;";
-        //Executem la consulta
-        $query_run = $conn->query($sql);
-        mysqli_close($conn);
-        return $query_run;
-
-    }
-
-    public function change_password($password){
-        include_once '../connect.php';
-
-        $password = password_hash($password, PASSWORD_DEFAULT);
-        //Establim la consula a la base de dades
-        $sql = "UPDATE Usuari SET Usuari.Contrasenya = $password WHERE Usuari.Id = $this->id;";
-        //Executem la consulta
-        $query_run = $conn->query($sql); 
-        mysqli_close($conn);
-        return $query_run;    
-
-    }
-
     public static function check_not_verify_user(){
         include_once '../../PHP/connect.php';
         
