@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./estils-perfil-notificacions.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <title>MirMeet</title>
+</head>
+
+<body style="background-color:rgba(255, 248, 235, 0.322);">
+
+    <div class="imagen mt-5" align="center">
+      <img class="imagen"
+        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" width="100"
+        height="100">
+    </div>
+    <div class="cambiar-foto">
+        <p style="line-height: 30px;">Nombre de usuario aqui</p>
+    </div>
+
+    <hr class="linea">
+
+    <form class="col-10 col-sm-10 col-md-12 col-lg-12 col-xl-12 col-xxl-12" action="../../PHP/usermodify.php" method="post">
+        <div class="contenedor-perfil" align="center">
+            <div class="w-25">
+              <div class="input-group form-group pt-5 mb-5">
+                <span class="input-group-text" id="addon-wrapping"><i class="fa fa-user"></i></span>
+                <input type="text" class="form-control" placeholder="Correo nuevo" name="usermail" aria-label="Username" aria-describedby="addon-wrapping" />
+              </div>
+    
+              <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="addon-wrapping"><i class="fa fa-lock"></i></span>
+                <input type="password" class="form-control" placeholder="Contraseña" name="password" aria-label="Password" aria-describedby="addon-wrapping" />
+              </div>
+              <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="addon-wrapping"><i class="fa fa-lock"></i></span>
+                <input type="password" class="form-control" placeholder="Confirmar contraseña" name="password2" aria-label="Password" aria-describedby="addon-wrapping" />
+              </div>
+            </div>
+        </div>
+    </form>
+</body>
+
+</html>
