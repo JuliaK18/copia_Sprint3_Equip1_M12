@@ -13,7 +13,7 @@ if(!empty($usermail)){
     $object = $usuari->change_mail($usermail);
     }
 
-if(!empty($usermail)){
+if(!empty($password)){
     $object = $usuari->change_password($password);
     }
 
