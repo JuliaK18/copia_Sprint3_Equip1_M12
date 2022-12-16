@@ -48,6 +48,9 @@ class Usuari {
     public function __construct4($verificat) {
         $this->verificat = $verificat;
     }
+    public function __construct5($nom_usuari) {
+        $this->nom_usuari = $nom_usuari;
+    }
 
     public function create() {
         // Connectem a la base de dades
@@ -207,7 +210,7 @@ class Usuari {
         return $insertQuery->execute();
     }
 
-    public static function get_users_not_verified() {
+    public static function get_users_not_verified($nom_usuari) {
         include_once '../../PHP/connect.php';
 
         // Recuperem tots els usuaris sense verificar
@@ -220,10 +223,10 @@ class Usuari {
         return ($result->num_rows > 0) ? $result->fetch_all(MYSQLI_ASSOC) : false;
     }
     
-    public function update_to_verify_user($id){
+    public function update_to_verify_user($nom_usuari){
         include_once '../connect.php';
         //Establim la consula a la base de dades
-        $sql = "UPDATE `Usuari` SET `Verificat` = '1' WHERE `Usuari`.`Id` = $id";
+        $sql = "UPDATE `Usuari` SET `Verificat` = '1' WHERE `Usuari`.`NomUsuari` = $id";
         //Executem la consulta
         $query_run = $conn->query($sql);
        
@@ -241,9 +244,9 @@ class Usuari {
     }
 
     public function change_mail($usermail){
-        include_once '../connect.php';
+        include '../PHP/connect.php';
         //Establim la consula a la base de dades
-        $sql = "UPDATE Usuari SET Usuari.CorreuElectronic = $usermail WHERE Usuari.Id = $this->id;";
+        $sql = "UPDATE Usuari SET Usuari.CorreuElectronic = '$usermail' WHERE Usuari.Id = $this->id;";
         //Executem la consulta
         $query_run = $conn->query($sql);
         mysqli_close($conn);
@@ -252,15 +255,15 @@ class Usuari {
     }
 
     public function change_password($password){
-        include_once '../connect.php';
+        include '../PHP/connect.php';
 
         $password = password_hash($password, PASSWORD_DEFAULT);
         //Establim la consula a la base de dades
-        $sql = "UPDATE Usuari SET Usuari.Contrasenya = $password WHERE Usuari.Id = $this->id;";
+        $sql = "UPDATE Usuari SET Usuari.Contrasenya = '$password' WHERE Usuari.Id = $this->id;";
         //Executem la consulta
         $query_run = $conn->query($sql); 
         mysqli_close($conn);
-        return $conn->query($sql);        
+        return $query_run;        
 
     }
 
@@ -285,6 +288,16 @@ class Usuari {
         return $query_run;     
 
     }
+    public static function get_users_not_verified2() {
+        include_once '../../PHP/connect.php';
 
+        // Recuperem tots els usuaris sense verificar
+        $sql = "SELECT NomUsuari as 'user' FROM Usuari WHERE Acceptat = 0";
+        
+        $query_run = mysqli_query($conn, $sql);
+        mysqli_close($conn);
+        return $query_run;     
+
+    }
 }
 ?>
