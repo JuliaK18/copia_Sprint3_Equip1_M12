@@ -224,23 +224,24 @@ class Usuari {
     }
     
     public function update_to_verify_user($nom_usuari){
-        include_once '../connect.php';
+        include '../../PHP/connect.php';
+
         //Establim la consula a la base de dades
-        $sql = "UPDATE `Usuari` SET `Verificat` = '1' WHERE `Usuari`.`NomUsuari` = $id";
+        $sql = "UPDATE `Usuari` SET `Verificat` = '1' WHERE `Usuari`.`NomUsuari` = '$nom_usuari'";
+
         //Executem la consulta
         $query_run = $conn->query($sql);
        
         mysqli_close($conn); 
     }
 
-    public function update_to_not_verify_user($id){
-        include_once '../../PHP/connect.php';
+    public function update_to_not_verify_user($nom_usuari){
+        include '../../PHP/connect.php';
         //Establim la consula a la base de dades
-        $sql = "UPDATE `Usuari` SET `Verificat` = '0' WHERE `Usuari`.`Id` = $id";
+        $sql = "UPDATE `Usuari` SET `Verificat` = '0' WHERE `Usuari`.`Id` = '$nom_usuari'";
         //Executem la consulta
         $query_run = $conn->query($sql);
-        mysqli_close($conn);
-        return $query_run;     
+        mysqli_close($conn);  
     }
 
     public function change_mail($usermail){
