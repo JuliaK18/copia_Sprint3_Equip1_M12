@@ -31,5 +31,5 @@ services:
          - 'mariadb:db'
          
    node:
-      image: node
+      image: node:latest
       tty: true

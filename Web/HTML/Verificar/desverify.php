@@ -1,7 +1,8 @@
 <?php
-include "../PHP/Class_Usuaris.php";
+include "../../PHP/Classes/Class_Usuaris.php";
 
-$nom = $_POST['user'];
+$nom2 = $_POST['user2'];
+
 
 $verificacio = new Usuari();
 $verificacio->update_to_not_verify_user($nom);
