@@ -78,9 +78,10 @@
             method: 'POST',
             data: 'token=' + response.credential,
             success: (res) => {
-              window.location = '../Who'
-              console.log(response.credential)
-              console.log(res)
+              res = JSON.parse(res)
+              if (res.ok) {
+                window.location = '../Who'
+              }
             }
           })
         }

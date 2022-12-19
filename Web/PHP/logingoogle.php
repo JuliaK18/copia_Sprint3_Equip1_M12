@@ -22,14 +22,16 @@ if ($payload) {
     if ($user->exists_user()) {
         session_start();
         $_SESSION['email'] = $email;
+
+        echo json_encode(array('ok' => true, 'exists' => true));
     } else {
         // Si l'usuari no existeix, crea'l
-        $user->create_user_from_google();
+        //$user->create_user_from_google();
         session_start();
         $_SESSION['email'] = $email;
-    }
 
-    echo json_encode(array('ok' => true ));
+        echo json_encode(array('ok' => true, 'exists' => false));
+    }
 } else {
     // Invalid ID token
     echo json_encode(array('ok' => false ));
