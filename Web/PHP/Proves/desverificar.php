@@ -6,3 +6,5 @@ session_start();
 
     $desverificar = new Usuari();
     $desverificar->update_to_not_verify_user($id);
+
+?>

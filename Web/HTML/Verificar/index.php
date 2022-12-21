@@ -23,13 +23,13 @@ include_once "../../PHP/Classes/Class_Usuaris.php";
 <div class="container">
       <h2>Llistat usuaris per verificar</h2>
       <!-- Button trigger modal -->
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
         Verificar
       </button>
 
    
       <!-- Inici Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <form method="POST" id="verify" action="verify.php">
