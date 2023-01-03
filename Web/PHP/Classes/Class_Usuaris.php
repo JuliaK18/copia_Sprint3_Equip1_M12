@@ -52,39 +52,73 @@ class Usuari {
         $this->nom_usuari = $nom_usuari;
     }
 
+    public function set_username($username) {
+        $this->nom_usuari = $username;
+    } 
+
     public function create() {
         // Connectem a la base de dades
-        include_once 'connect.php';
+        include 'connect.php';
 
         // Recuperem la informació necessària
         $username = $this->nom_usuari;
         $email = $this->email;
-        $password = $this->contrasenya;
 
         // Fem la sentència per veure si existeix un usuari amb aquestes dades
         $existsQuery = $conn->prepare("SELECT Id FROM Usuari WHERE NomUsuari = ? OR CorreuElectronic = ?");
         $existsQuery->bind_param('ss', $username, $email);
         $existsQuery->execute();
-
-        // Creem un hash per verificar el correu després
-        $hash = bin2hex(random_bytes(32));
-        $this->hash_verificacio_email = $hash;
         
         // Guardem el resultat a una variable
         $existsResult = $existsQuery->get_result();
 
         // Si no existeix cap usuari...
         if ($existsResult->num_rows == 0) {
-            // Fes un insert d'aquest usuari i torna true
-            $insertQuery = $conn->prepare("INSERT INTO Usuari (NomUsuari, CorreuElectronic, Contrasenya, HashCorreuValidar, IdTipusUsuari, Acceptat) VALUES (?, ?, ?, ?, 1, 0)");
-            $insertQuery->bind_param('ssss', $username, $email, $password, $hash);
-            $insertQuery->execute();
-
-            // Recuperem la id d'aquest usuari i la guardem
-            return true;
+            if (isset($password)) {
+                return $this->create_normal();
+            } else {
+                return $this->create_google();
+            }
         }
         // Del contrari, torna false
         return false;
+    }
+
+    public function create_normal() {
+        // Connectem a la base de dades
+        include 'connect.php';
+
+        // Recuperem la informació necessària
+        $username = $this->nom_usuari;
+        $email = $this->email;
+        $password = $this->contrasenya;
+
+        // Creem un hash per verificar el correu després
+        $hash = bin2hex(random_bytes(32));
+        $this->hash_verificacio_email = $hash;
+
+        // Fes un insert d'aquest usuari i torna true
+        $insertQuery = $conn->prepare("INSERT INTO Usuari (NomUsuari, CorreuElectronic, Contrasenya, HashCorreuValidar, IdTipusUsuari, Acceptat) VALUES (?, ?, ?, ?, 1, 0)");
+        $insertQuery->bind_param('ssss', $username, $email, $password, $hash);
+        $insertQuery->execute();
+
+        return true;
+    }
+
+    public function create_google() {
+        // Connectem a la base de dades
+        include 'connect.php';
+
+        // Recuperem la informació necessària
+        $username = $this->nom_usuari;
+        $email = $this->email;
+
+        // Fes un insert d'aquest usuari i torna true
+        $insertQuery = $conn->prepare("INSERT INTO Usuari (NomUsuari, CorreuElectronic, IdTipusUsuari, CorreuValidat, Acceptat) VALUES (?, ?, 1, 1, 0)");
+        $insertQuery->bind_param('ss', $username, $email);
+        $insertQuery->execute();
+
+        return true;
     }
 
     public function login() {

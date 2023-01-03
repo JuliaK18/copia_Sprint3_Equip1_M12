@@ -80,7 +80,7 @@
             success: (res) => {
               res = JSON.parse(res)
               if (res.ok) {
-                window.location = '../Who'
+                window.location = '../AdditionalInformation'
               }
             }
           })

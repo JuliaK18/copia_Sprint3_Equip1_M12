@@ -17,7 +17,7 @@ async function register() {
     let password = id('passwordInput').value
     let passwordRepeat = id('passwordRepeatInput').value
 
-    let response = await fetch('../../PHP/createAccount.php', {
+    let response = await fetch('../../PHP/createAccountNormal.php', {
         method: 'POST',
         body: JSON.stringify({
             username,
