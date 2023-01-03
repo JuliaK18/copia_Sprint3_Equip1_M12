@@ -16,7 +16,9 @@ async function createAccount() {
         }
     })
 
-    let data = await response.json()
+    let res = await response.json()
 
-    console.log(await data)
+    if (res.ok) {
+        location.href = '../Who'
+    }
 }
