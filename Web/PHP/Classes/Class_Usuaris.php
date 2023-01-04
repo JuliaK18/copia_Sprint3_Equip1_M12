@@ -1,6 +1,7 @@
 <?php
 
 require __DIR__ . '/Class_Mail.php';
+require __DIR__ . '/Class_Validate.php';
 
 class Usuari {
     private $id;
@@ -33,8 +34,10 @@ class Usuari {
     public function __construct1($input) {
         if (is_int($input)) {
             $this->id = $input;
-        } else {
+        } else if (Validate::is_email($input)) {
             $this->email = $input;
+        } else {
+            $this->hash_verificacio_email = $input;
         }
     }
 
@@ -106,6 +109,8 @@ class Usuari {
         $insertQuery->bind_param('ssss', $username, $email, $password, $hash);
         $insertQuery->execute();
 
+        $this->send_email_validate_email();
+
         return true;
     }
 
@@ -150,6 +155,49 @@ class Usuari {
 
         $mail = new Mail($this->email, $this->nom, $subject, $body, $alt);
         $mail->send();
+    }
+
+    public function send_email_validate_email() {
+        $this->nom = (isset($_SESSION['given_name'])) ? $_SESSION['given_name'] : $this->nom_usuari;
+
+        $subject = '¡Bienvenido a MirMeet!';
+
+        $body = "Le enviamos este correo para informarle de que está a punto de crear su cuenta en MirMeet, @$this->nom_usuari.
+        <br><br>
+        Para continuar, solo debe pulsar en el siguiente enlace (o puede copiarlo y pegarlo en cualquier navegador web):
+        <br>
+        <a href='http://localhost:88/PHP/validate-email.php?hash=$this->hash_verificacio_email'>http://localhost:88/PHP/validate-email.php?hash=$this->hash_verificacio_email</a>
+        <br><br>
+        Deseamos que disfrute mucho de la experiencia.
+        <br><br>
+        Cordialmente,
+        <br>
+        El equipo de MirMeet.";
+
+        $alt = "Le enviamos este correo para informarle de que está a punto de crear su cuenta en MirMeet, @$this->nom_usuari.
+        Para continuar, solo debe pulsar en el siguiente enlace (o puede copiarlo y pegarlo en cualquier navegador web):
+        http://localhost:88/PHP/validate-email.php?hash=$this->hash_verificacio_email
+        Deseamos que disfrute mucho de la experiencia.
+        Cordialmente,
+        El equipo de MirMeet.";
+
+        $mail = new Mail($this->email, $this->nom, $subject, $body, $alt);
+        $mail->send();
+    }
+
+    public function validate_email() {
+        // Connectem a la base de dades
+        include 'connect.php';
+
+        // Recuperem la informació necessària
+        $hash = $this->hash_verificacio_email;
+
+        // Fem la sentència per recuperar el correu 
+        $emailQuery = $conn->prepare("UPDATE Usuari SET CorreuValidat = 1 WHERE HashCorreuValidar = ?");
+        $emailQuery->bind_param('s', $hash);
+        $emailQuery->execute();
+
+        $conn->close();
     }
 
     public function login() {
