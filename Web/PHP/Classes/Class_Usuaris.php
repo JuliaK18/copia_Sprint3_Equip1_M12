@@ -185,6 +185,34 @@ class Usuari {
         $mail->send();
     }
 
+    public function send_email_recovery() {
+        $this->nom = (isset($this->nom)) ? $this->nom : $this->nom_usuari;
+
+        $subject = 'Intento de recuperar la contraseña';
+
+        $body = "Le enviamos este correo para informarle que se ha solicitado un cambio de contraseña para su cuenta de MirMeet, @$this->nom_usuari.
+        <br><br>
+        Para continuar, solo debe pulsar en el siguiente enlace (o puede copiarlo y pegarlo en cualquier navegador web):
+        <br>
+        <a href='http://localhost:88/PHP/recovery-password.php?hash=$this->hash_recuperacio_contrasenya'>http://localhost:88/PHP/validate-email.php?hash=$this->hash_recuperacio_contrasenya</a>
+        <br><br>
+        Si usted no ha solicitado el cambio de contraseña, puede ignorar este correo.
+        <br><br>
+        Cordialmente,
+        <br>
+        El equipo de MirMeet.";
+
+        $alt = "Le enviamos este correo para informarle que se ha solicitado un cambio de contraseña para su cuenta de MirMeet, @$this->nom_usuari.
+        Para continuar, solo debe pulsar en el siguiente enlace (o puede copiarlo y pegarlo en cualquier navegador web):
+        http://localhost:88/PHP/recovery-password.php?hash=$this->hash_recuperacio_contrasenya
+        Si usted no ha solicitado el cambio de contraseña, puede ignorar este correo.
+        Cordialmente,
+        El equipo de MirMeet.";
+
+        $mail = new Mail($this->email, $this->nom, $subject, $body, $alt);
+        $mail->send();
+    }
+
     public function validate_email() {
         // Connectem a la base de dades
         include 'connect.php';
@@ -282,17 +310,31 @@ class Usuari {
     
         // Recuperem la informació necessària 
         $email = $this->email;
-        $password = $this->contrasenya;
+
+        // Creem un hash per canviar la contrasenya
+        $hash = bin2hex(random_bytes(32));
+        $this->hash_recuperacio_contrasenya = $hash;
     
         // Busquem l'email a la nostra base de dades amb la següent sentència
-        $existsQuery = $conn->prepare("SELECT CorreuElectronic FROM Usuari WHERE CorreuElectronic = ?");
+        $existsQuery = $conn->prepare("SELECT NomUsuari, Nom FROM Usuari WHERE CorreuElectronic = ?");
         $existsQuery->bind_param('s', $email);
-        $insertQuery->execute();
+        $existsQuery->execute();
 
         // Executem la sentència y la guardem a una variable
         $existsResult = $existsQuery->get_result();
 
+        $data = $existsResult->fetch_all(MYSQLI_ASSOC)[0];
+        $this->nom = $data['Nom'];
+        $this->nom_usuari = $data['NomUsuari'];
 
+        if ($existsResult->num_rows > 0) {
+            // Assigna un hash de recuperació de contrasenya
+            $updateQuery = $conn->prepare("UPDATE Usuari SET HashCanviContrasenya = ? WHERE CorreuElectronic = ?");
+            $updateQuery->bind_param('ss', $hash, $email);
+            $updateQuery->execute();
+
+            $this->send_email_recovery();
+        }
     }
 
     public function exists_user() {

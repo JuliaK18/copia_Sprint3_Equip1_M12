@@ -46,7 +46,7 @@
           >
             <div class="h1 mt-5">Recuperar contraseña</div>
 
-            <form
+            <div
               id="email-div"
               class="input-group form-group mt-4 flex-column"
               action="../../PHP/recovery.php"
@@ -58,13 +58,12 @@
                 class="form-control w-100"
                 placeholder="Email"
                 name="email"
+                id="email"
                 aria-label="Email"
                 aria-describedby="addon-wrapping"
               />
-            </form>
-            <button id="ready-button" type="button" name="forgotPwd" class="btn btn-dark mt-3">
-              Listo
-            </button>
+              <button id="change-password" type="button" name="forgotPwd" class="btn btn-dark mt-3">Listo</button>
+            </div>
           </div>
           <a class="mt-5">Servicio de atención al cliente</a>
         </div>
@@ -72,5 +71,7 @@
     </main>
 
     <footer></footer>
+
+    <script src="script.js"></script>
   </body>
 </html>
