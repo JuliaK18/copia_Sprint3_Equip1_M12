@@ -16,22 +16,15 @@ $payload = $client->verifyIdToken($id_token);
 // Si hi ha dades...
 if ($payload) {
     $email = $payload['email'];
+    $given_name = $payload['given_name'];
     $user = new Usuari($email);
 
-    // Revisa si l'usuari existeix o no
-    if ($user->exists_user()) {
-        session_start();
-        $_SESSION['email'] = $email;
+    session_start();
+    $_SESSION['email'] = $email;
+    $_SESSION['given_name'] = $given_name;
 
-        echo json_encode(array('ok' => true, 'exists' => true));
-    } else {
-        // Si l'usuari no existeix, crea'l
-        //$user->create_user_from_google();
-        session_start();
-        $_SESSION['email'] = $email;
+    echo json_encode(array('ok' => true, 'exists' => $user->exists_user()));
 
-        echo json_encode(array('ok' => true, 'exists' => false));
-    }
 } else {
     // Invalid ID token
     echo json_encode(array('ok' => false ));

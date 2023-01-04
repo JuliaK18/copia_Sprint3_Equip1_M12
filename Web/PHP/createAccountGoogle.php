@@ -10,6 +10,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 // Recuperem el correu de la sessió
 session_start();
 $email = $_SESSION['email'];
+$given_name = $_SESSION['given_name'];
 
 // Creem una instància d'usuaris amb el correu
 $user = new Usuari($email);
@@ -18,7 +19,7 @@ $user = new Usuari($email);
 Validate::remove_all_whitespaces($username, $email);
 
 // Ens assegurem que les variables no tenen caràcters perillosos (XSS protection) 
-Validate::sanitize($username, $email);
+Validate::sanitize($username, $email, $given_name);
 
 // Si el nom d'usuari està buit, avisa i surt
 if (Validate::is_any_empty($username, $email)) {

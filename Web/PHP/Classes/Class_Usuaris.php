@@ -1,4 +1,7 @@
 <?php
+
+require __DIR__ . '/Class_Mail.php';
+
 class Usuari {
     private $id;
     private $nom;
@@ -63,6 +66,7 @@ class Usuari {
         // Recuperem la informació necessària
         $username = $this->nom_usuari;
         $email = $this->email;
+        $password = $this->contrasenya;
 
         // Fem la sentència per veure si existeix un usuari amb aquestes dades
         $existsQuery = $conn->prepare("SELECT Id FROM Usuari WHERE NomUsuari = ? OR CorreuElectronic = ?");
@@ -118,7 +122,34 @@ class Usuari {
         $insertQuery->bind_param('ss', $username, $email);
         $insertQuery->execute();
 
+        $this->send_email_welcome();
+
         return true;
+    }
+
+    public function send_email_welcome() {
+        $this->nom = (isset($_SESSION['given_name'])) ? $_SESSION['given_name'] : $this->nom_usuari;
+
+        $subject = '¡Bienvenido a MirMeet!';
+
+        $body = "Le enviamos este correo para informarle de que su cuenta en MirMeet, @$this->nom_usuari, acaba de ser creada.
+        <br><br>
+        Estamos muy feliz de tenerle en MirMeet. 
+        <br><br>
+        Deseamos que disfrute mucho de la experiencia.
+        <br><br>
+        Cordialmente,
+        <br>
+        El equipo de MirMeet.";
+
+        $alt = "Le enviamos este correo para informarle de que su cuenta en MirMeet, @$this->nom_usuari, acaba de ser creada.
+        Estamos muy feliz de tenerle en MirMeet. 
+        Deseamos que disfrute mucho de la experiencia.
+        Cordialmente,
+        El equipo de MirMeet.";
+
+        $mail = new Mail($this->email, $this->nom, $subject, $body, $alt);
+        $mail->send();
     }
 
     public function login() {
