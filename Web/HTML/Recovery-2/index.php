@@ -84,8 +84,6 @@ $hash = $_GET['hash'];
       </div>
     </main>
 
-    <div class="button" onmousedown="party.confetti(this)">Click me!</div>
-
     <footer></footer>
 
     <div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
