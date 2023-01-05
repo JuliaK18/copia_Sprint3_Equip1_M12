@@ -209,7 +209,7 @@ class Usuari {
         El equipo de MirMeet.";
 
         $mail = new Mail($this->email, $this->nom, $subject, $body, $alt);
-        $mail->send();
+        return $mail->send();
     }
 
     public function validate_email() {
@@ -332,8 +332,10 @@ class Usuari {
             $updateQuery->bind_param('ss', $hash, $email);
             $updateQuery->execute();
 
-            $this->send_email_recovery();
+            return $this->send_email_recovery();
         }
+
+        return false;
     }
 
     public function change_password_recovery($password) {
@@ -345,9 +347,11 @@ class Usuari {
         // Actualitzem la contrasenya i eliminem el hash de canvi de contrasenya
         $updateQuery = $conn->prepare("UPDATE Usuari SET Contrasenya = ?, HashCanviContrasenya = NULL WHERE HashCanviContrasenya = ?");
         $updateQuery->bind_param('ss', $password, $hash);
-        $updateQuery->execute();
+        $status = $updateQuery->execute();
 
         $conn->close();
+
+        return $status;
     }
 
     public function exists_user() {

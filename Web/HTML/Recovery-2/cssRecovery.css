@@ -13,12 +13,8 @@
     margin: 1%;
 }
 
-#container{
-    display: flex;
-    height: 70vh;
-    align-items: center;
-    justify-content: left;
-
+main{
+    min-height: 70vh;
 }
 
 #footer{

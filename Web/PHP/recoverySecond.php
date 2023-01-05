@@ -29,6 +29,8 @@ if ($password != $password_verify) {
 $password = password_hash($password, PASSWORD_DEFAULT);
 
 $user = new Usuari($hash);
-$user->change_password_recovery($password);
+$success = $user->change_password_recovery($password);
+
+echo json_encode(array('ok' => $success));
 
 ?>

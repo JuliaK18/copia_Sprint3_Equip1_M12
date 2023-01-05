@@ -42,12 +42,10 @@ $hash = $_GET['hash'];
     </header>
 
     <main>
-      <div class="container-fluid ms-5" id="container">
-        <div class="row">
+      <div class="container-fluid">
+        <div class="row d-flex justify-content-center">
           <div
-            class="col-10 col-sm-10 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-            action="../../PHP/recovery.php"
-            method="post"
+            class="col-12 col-md-9 col-lg-6 px-4"
           >
             <div class="h1 mt-5">Recuperar contraseña</div>
             <div class="h4 mt-4">Introduce tu nueva contraseña</div>
@@ -79,11 +77,8 @@ $hash = $_GET['hash'];
 
             <input type="hidden" name="hash" id="hash" value="<?= $hash ?>">
             <div class="mt-2">La contraseña debe coincidir con la introducida anteriormente.</div>
-            <div class="d-flex justify-content-end">
-              <button type="button" class="btn btn-dark mt-3 py-2 px-5" name="resetBtn" id="resetButton">Listo</button>
-            </div>
+            <button type="button" class="btn btn-dark mt-3 py-2 px-5 w-100" name="resetBtn" id="resetButton">Listo</button>
           </div>
-          <a class="mt-5">Servicio de atención al cliente</a>
         </div>
       </div>
     </main>

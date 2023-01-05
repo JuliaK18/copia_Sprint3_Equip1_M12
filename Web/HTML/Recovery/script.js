@@ -14,6 +14,5 @@ changePasswordButton.addEventListener('click', async () => {
         }
     })
 
-    let res = await response.json()
-    console.log(res)
+    id('message-on-send').style.display = 'inline-block'
 })

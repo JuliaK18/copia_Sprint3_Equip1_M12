@@ -68,9 +68,9 @@ class Mail {
             $mail->Body    = $this->body;
             $mail->AltBody = $this->alt;
 
-            $mail->send();
+            return $mail->send();
         } catch (Exception $e) {
-            
+            return false;
         }
     }
 
