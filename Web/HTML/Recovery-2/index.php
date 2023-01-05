@@ -23,6 +23,7 @@ $hash = $_GET['hash'];
       integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -83,7 +84,29 @@ $hash = $_GET['hash'];
       </div>
     </main>
 
+    <div class="button" onmousedown="party.confetti(this)">Click me!</div>
+
     <footer></footer>
+
+    <div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h1 class="h4" id="modalLabel">Contraseña cambiada</h1>
+            <p class="my-0">Su contraseña se ha cambiado correctamente.</p> 
+            <p class="mt-0 mb-3">Ahora se le redirigirá a la página para iniciar sesión.</p>
+            <div class="progress" style="height: 5px;">
+              <div class="progress-bar" style="transition: none;" role="progressbar" id="progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1000"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="width: 50px; height: 50px; background: transparent; position:absolute; left:50%; top:30%;" id="party-point">
+
+    </div>
+
 
     <script src="script.js"></script>
   </body>
