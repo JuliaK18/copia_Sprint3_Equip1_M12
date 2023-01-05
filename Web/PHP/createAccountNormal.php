@@ -8,7 +8,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 ['username' => $username, 'email' => $email, 'password' => $password, 'passwordRepeat' => $passwordRepeat] = $data;
 
 // Eliminem els espais en blanc que puguin haver
-Validate::remove_all_whitespaces($username, $email, $password, $passwordRepeat);
+Validate::remove_all_whitespaces($username, $email);
 
 // Ens assegurem que les variables no tenen caràcters perillosos (XSS protection) 
 Validate::sanitize($username, $email, $password, $passwordRepeat);

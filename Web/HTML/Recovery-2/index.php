@@ -1,3 +1,10 @@
+<?php
+if (!isset($_GET['hash'])) {
+  header('location: ../Login');
+}
+
+$hash = $_GET['hash'];
+?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -37,7 +44,7 @@
     <main>
       <div class="container-fluid ms-5" id="container">
         <div class="row">
-          <form
+          <div
             class="col-10 col-sm-10 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
             action="../../PHP/recovery.php"
             method="post"
@@ -51,7 +58,8 @@
                 class="form-control"
                 placeholder="Contraseña"
                 aria-label="password"
-                name="name"
+                name="password"
+                id="password"
                 aria-describedby="addon-wrapping"
               />
             </div>
@@ -62,19 +70,26 @@
                 type="password"
                 class="form-control"
                 placeholder="Contraseña"
-                aria-label="password"
-                name="confirm_password"
+                aria-label="password_verify"
+                name="password-verify"
+                id="password-verify"
                 aria-describedby="addon-wrapping"
               />
             </div>
+
+            <input type="hidden" name="hash" id="hash" value="<?= $hash ?>">
             <div class="mt-2">La contraseña debe coincidir con la introducida anteriormente.</div>
-            <div class="d-flex justify-content-end"><button type="button" class="btn btn-dark mt-3 py-2 px-5" name="resetBtn">Listo</button></div>
-</form>
+            <div class="d-flex justify-content-end">
+              <button type="button" class="btn btn-dark mt-3 py-2 px-5" name="resetBtn" id="resetButton">Listo</button>
+            </div>
+          </div>
           <a class="mt-5">Servicio de atención al cliente</a>
         </div>
       </div>
     </main>
 
     <footer></footer>
+
+    <script src="script.js"></script>
   </body>
 </html>

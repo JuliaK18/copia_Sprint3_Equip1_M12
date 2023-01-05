@@ -19,8 +19,7 @@ class Usuari {
     private $verificat;
     private $bloquejat;
     private $tipus_usuari;
-    private $hash_verificacio_email;
-    private $hash_recuperacio_contrasenya;
+    private $hash;
     
     public function __construct() {
         $arguments = func_get_args();
@@ -37,7 +36,7 @@ class Usuari {
         } else if (Validate::is_email($input)) {
             $this->email = $input;
         } else {
-            $this->hash_verificacio_email = $input;
+            $this->hash = $input;
         }
     }
 
@@ -102,7 +101,7 @@ class Usuari {
 
         // Creem un hash per verificar el correu després
         $hash = bin2hex(random_bytes(32));
-        $this->hash_verificacio_email = $hash;
+        $this->hash = $hash;
 
         // Fes un insert d'aquest usuari i torna true
         $insertQuery = $conn->prepare("INSERT INTO Usuari (NomUsuari, CorreuElectronic, Contrasenya, HashCorreuValidar, IdTipusUsuari, Acceptat) VALUES (?, ?, ?, ?, 1, 0)");
@@ -166,7 +165,7 @@ class Usuari {
         <br><br>
         Para continuar, solo debe pulsar en el siguiente enlace (o puede copiarlo y pegarlo en cualquier navegador web):
         <br>
-        <a href='http://localhost:88/PHP/validate-email.php?hash=$this->hash_verificacio_email'>http://localhost:88/PHP/validate-email.php?hash=$this->hash_verificacio_email</a>
+        <a href='http://localhost:88/PHP/validate-email.php?hash=$this->hash'>http://localhost:88/PHP/validate-email.php?hash=$this->hash</a>
         <br><br>
         Deseamos que disfrute mucho de la experiencia.
         <br><br>
@@ -176,7 +175,7 @@ class Usuari {
 
         $alt = "Le enviamos este correo para informarle de que está a punto de crear su cuenta en MirMeet, @$this->nom_usuari.
         Para continuar, solo debe pulsar en el siguiente enlace (o puede copiarlo y pegarlo en cualquier navegador web):
-        http://localhost:88/PHP/validate-email.php?hash=$this->hash_verificacio_email
+        http://localhost:88/PHP/validate-email.php?hash=$this->hash
         Deseamos que disfrute mucho de la experiencia.
         Cordialmente,
         El equipo de MirMeet.";
@@ -194,7 +193,7 @@ class Usuari {
         <br><br>
         Para continuar, solo debe pulsar en el siguiente enlace (o puede copiarlo y pegarlo en cualquier navegador web):
         <br>
-        <a href='http://localhost:88/PHP/recovery-password.php?hash=$this->hash_recuperacio_contrasenya'>http://localhost:88/PHP/validate-email.php?hash=$this->hash_recuperacio_contrasenya</a>
+        <a href='http://localhost:88/HTML/Recovery-2?hash=$this->hash'>http://localhost:88/HTML/Recovery-2?hash=$this->hash</a>
         <br><br>
         Si usted no ha solicitado el cambio de contraseña, puede ignorar este correo.
         <br><br>
@@ -204,7 +203,7 @@ class Usuari {
 
         $alt = "Le enviamos este correo para informarle que se ha solicitado un cambio de contraseña para su cuenta de MirMeet, @$this->nom_usuari.
         Para continuar, solo debe pulsar en el siguiente enlace (o puede copiarlo y pegarlo en cualquier navegador web):
-        http://localhost:88/PHP/recovery-password.php?hash=$this->hash_recuperacio_contrasenya
+        http://localhost:88/HTML/Recovery-2?hash=$this->hash
         Si usted no ha solicitado el cambio de contraseña, puede ignorar este correo.
         Cordialmente,
         El equipo de MirMeet.";
@@ -218,7 +217,7 @@ class Usuari {
         include 'connect.php';
 
         // Recuperem la informació necessària
-        $hash = $this->hash_verificacio_email;
+        $hash = $this->hash;
 
         // Fem la sentència per recuperar el correu 
         $emailQuery = $conn->prepare("UPDATE Usuari SET CorreuValidat = 1 WHERE HashCorreuValidar = ?");
@@ -313,7 +312,7 @@ class Usuari {
 
         // Creem un hash per canviar la contrasenya
         $hash = bin2hex(random_bytes(32));
-        $this->hash_recuperacio_contrasenya = $hash;
+        $this->hash = $hash;
     
         // Busquem l'email a la nostra base de dades amb la següent sentència
         $existsQuery = $conn->prepare("SELECT NomUsuari, Nom FROM Usuari WHERE CorreuElectronic = ?");
@@ -335,6 +334,20 @@ class Usuari {
 
             $this->send_email_recovery();
         }
+    }
+
+    public function change_password_recovery($password) {
+        include '../PHP/connect.php';
+
+        // Recuperem la informació necessària 
+        $hash = $this->hash;
+
+        // Actualitzem la contrasenya i eliminem el hash de canvi de contrasenya
+        $updateQuery = $conn->prepare("UPDATE Usuari SET Contrasenya = ?, HashCanviContrasenya = NULL WHERE HashCanviContrasenya = ?");
+        $updateQuery->bind_param('ss', $password, $hash);
+        $updateQuery->execute();
+
+        $conn->close();
     }
 
     public function exists_user() {
