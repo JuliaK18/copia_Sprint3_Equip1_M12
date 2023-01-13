@@ -38,6 +38,7 @@ class Usuari {
     public function __construct2($nom_usuari, $contrasenya) {
         $this->nom_usuari = $nom_usuari;
         $this->contrasenya = $contrasenya;
+        
     }
 
     public function __construct3($nom_usuari, $email, $contrasenya) {
