@@ -11,33 +11,40 @@
     <title>Document</title>
 </head>
 <body>
-<main>
+<main class="vh-100">
       <div
-        class="container-fluid d-flex align-items-start justify-content-start ms-5">
+        class="container-fluid d-flex flex-column align-items-start justify-content-center px-5 h-75">
             <h1 class="mt-5">¡Aún no tienes una cuenta!</h1>
 
             <form
               id="email-div"
-              class="input-group form-group mt-4 flex-column"
+              class=" mt-4 flex-column"
               action="../../PHP/recovery.php"
               method="post"
             >
               <h5>Parece que aún no tienes una cuenta creada. Si deseas crear una, introduce la información necesaria.</h5>
-              <br><br><br>
-              <input
-                type="text"
-                class="form-control w-100"
-                placeholder="Nombre de usuario"
-                name="username"
-                aria-label="username"
-                aria-describedby="addon-wrapping"
-              />
+              <br><br>
+              <div class="input-group">
+                <label for="username" class="col-form-label">Nombre de usuario</label>
+                <input
+                  type="text"
+                  class="form-control w-100"
+                  placeholder="Nombre de usuario"
+                  name="username"
+                  id="username"
+                  aria-label="username"
+                  aria-describedby="addon-wrapping"
+                />
+              </div>
+              <br>
+              <button id="create-account" type="button" name="create" class="btn btn-dark mt-3 w-100">
+                Crear cuenta
+              </button>
             </form>
-            <button id="ready-button" type="button" name="username-select" class="btn btn-dark mt-3">
-              Listo
-            </button>
       </div>
     </main>
+
+    <script src="script.js"></script>
 
 </body>
 </html>

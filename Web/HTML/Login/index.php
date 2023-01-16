@@ -80,7 +80,7 @@
             success: (res) => {
               res = JSON.parse(res)
               if (res.ok) {
-                window.location = '../Who'
+                window.location = (res.exists) ? '../Who' : '../AdditionalInformation'
               }
             }
           })
@@ -92,7 +92,7 @@
           });
           google.accounts.id.renderButton(
             document.getElementById("buttonDiv"),
-            { theme: "outline", size: "large" }  // customization attributes
+            { theme: "outline", size: "large", type: 'icon' }  // customization attributes
           );
         }
     </script>

@@ -1,11 +1,11 @@
 //Confirmació per poder assegurar-nos si volem verificar a l'usuari mencionat 
-document.getElementById("si").onclick = confirmForm;
+/*document.getElementById("si").onclick = confirmForm;
 
 function confirmForm(){
     if(confirm('Estàs segur de validar aquest usuari?')){
         return boolean;
     }     
-}
+}*/
 
 // CapacityWindow.document.open("text/html");
 // CapacityWindow.document.write(s);

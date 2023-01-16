@@ -3,16 +3,15 @@
     margin: 0px;
 }
 
-#header{
+header{
     height: 15vh;
 }
 
-#container{
-    height: 70vh;
-    margin-left: 10%;
+main{
+    min-height: 70vh;
 }
 
 
-#footer{
+footer{
     height: 15vh;
 }

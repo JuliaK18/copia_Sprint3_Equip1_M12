@@ -37,40 +37,41 @@
 
     <main>
       <div
-        class="container-fluid d-flex align-items-start justify-content-start"
-        id="container"
+        class="d-flex align-items-start justify-content-center"
       >
-        <div class="row">
+        <div class="row w-100 d-flex align-items-start justify-content-center">
           <div
-            class="col-10 col-sm-10 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+            class="col-12 col-sm-10 col-md-9 col-lg-8 col-xl-6 col-xxl-5 px-4 px-md-5"
           >
             <div class="h1 mt-5">Recuperar contraseña</div>
 
-            <form
+            <div
               id="email-div"
               class="input-group form-group mt-4 flex-column"
               action="../../PHP/recovery.php"
               method="post"
             >
-              <p>Por favor, introduce el correo electrónico</p>
+              <label for="email" class="mb-3">Por favor, introduce el correo electrónico</label>
               <input
                 type="email"
                 class="form-control w-100"
                 placeholder="Email"
                 name="email"
+                id="email"
                 aria-label="Email"
                 aria-describedby="addon-wrapping"
               />
-            </form>
-            <button id="ready-button" type="button" name="forgotPwd" class="btn btn-dark mt-3">
-              Listo
-            </button>
+              <button id="change-password" type="button" name="forgotPwd" class="btn btn-dark mt-3">Listo</button>
+            </div>
+
+            <small class="text-muted mt-3" id="message-on-send" style="display: none;">Si existe una cuenta con esta dirección, recibirá un correo para cambiar la contraseña</small>
           </div>
-          <a class="mt-5">Servicio de atención al cliente</a>
         </div>
       </div>
     </main>
 
     <footer></footer>
+
+    <script src="script.js"></script>
   </body>
 </html>
