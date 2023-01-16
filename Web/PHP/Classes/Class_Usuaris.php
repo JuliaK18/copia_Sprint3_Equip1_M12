@@ -38,7 +38,22 @@ class Usuari {
     public function __construct2($nom_usuari, $contrasenya) {
         $this->nom_usuari = $nom_usuari;
         $this->contrasenya = $contrasenya;
+
+        include_once 'connect.php';
+        // Recuperem la informació necessària
+        // Fem la sentència per veure si existeix un usuari amb aquesta dada
+        $existsQuery = $conn->prepare("SELECT Id FROM Usuari WHERE NomUsuari = ?");
+        $existsQuery->bind_param('s', $this->nom_usuari);
+        $existsQuery->execute();
         
+        $existsResult = $existsQuery->get_result();
+
+        // Del contrari, torna false
+        $algo = $existsResult->fetch();
+        return $algo['id_user'];
+        
+        //tancar connexioDB
+        $conn->close();
     }
 
     public function __construct3($nom_usuari, $email, $contrasenya) {
@@ -52,6 +67,9 @@ class Usuari {
     public function __construct5($nom_usuari) {
         $this->nom_usuari = $nom_usuari;
     }
+
+
+
 
     public function create() {
         // Connectem a la base de dades
@@ -86,6 +104,9 @@ class Usuari {
         }
         // Del contrari, torna false
         return false;
+        
+        //tancar connexioDB
+        $conn->close();
     }
 
     public function login() {
@@ -109,6 +130,9 @@ class Usuari {
         
         // Retornem si coincideix la contrasenya amb el hash (si l'usuari és incorrecte, també donarà false)
         return password_verify($password, $passwordHashed);
+
+        //tancar connexioDB
+        $conn->close();
     } 
 
     public function validate() {
@@ -135,6 +159,9 @@ class Usuari {
         }
         // Si no, retorna false
         return false;
+
+        //tancar connexioDB
+        $conn->close();
     }
 
     public function discard() {
@@ -161,6 +188,9 @@ class Usuari {
         }
         // Si no, retorna false
         return false;
+
+        //tancar connexioDB
+        $conn->close();
     }
     
     // Recuperar contraseña: https://programacion.net/articulo/sistema_de_recuperacion_de_contrasenas_con_php_y_mysql_1707
@@ -180,7 +210,8 @@ class Usuari {
         // Executem la sentència y la guardem a una variable
         $existsResult = $existsQuery->get_result();
 
-
+        //tancar connexioDB
+        $conn->close();
     }
 
     public function exists_user() {
@@ -196,6 +227,9 @@ class Usuari {
 
         // Executem la sentència i guardem el resultat a una variable
         return $existsQuery->get_result()->num_rows > 0;
+
+        //tancar connexioDB
+        $conn->close();
     }
 
     public function create_user_from_google() {
@@ -209,6 +243,9 @@ class Usuari {
         $insertQuery = $conn->prepare("INSERT INTO Usuari (CorreuElectronic, IdTipusUsuari, Acceptat) VALUES (?, 1, 0)");
         $insertQuery->bind_param('s', $email);
         return $insertQuery->execute();
+
+        //tancar connexioDB
+        $conn->close();
     }
 
     public static function get_users_not_verified($nom_usuari) {
@@ -222,6 +259,9 @@ class Usuari {
 
         // Si hi ha usuaris, retornem la llista. Del contrari, retornarem false
         return ($result->num_rows > 0) ? $result->fetch_all(MYSQLI_ASSOC) : false;
+
+        //tancar connexioDB
+        $conn->close();
     }
     
     public function update_to_verify_user($nom_usuari){
@@ -231,7 +271,8 @@ class Usuari {
         //Executem la consulta
         $query_run = $conn->query($sql);
        
-        mysqli_close($conn); 
+        //tancar connexioDB
+        $conn->close(); 
     }
 
     public function update_to_not_verify_user($id){
@@ -240,7 +281,10 @@ class Usuari {
         $sql = "UPDATE `Usuari` SET `Verificat` = '0' WHERE `Usuari`.`Id` = $id";
         //Executem la consulta
         $query_run = $conn->query($sql);
-        mysqli_close($conn);
+        
+        //tancar connexioDB
+        $conn->close();
+
         return $query_run;     
     }
 
@@ -250,7 +294,10 @@ class Usuari {
         $sql = "UPDATE Usuari SET Usuari.CorreuElectronic = '$usermail' WHERE Usuari.Id = $this->id;";
         //Executem la consulta
         $query_run = $conn->query($sql);
-        mysqli_close($conn);
+        
+        //tancar connexioDB
+        $conn->close();
+
         return $query_run;
 
     }
@@ -263,7 +310,10 @@ class Usuari {
         $sql = "UPDATE Usuari SET Usuari.Contrasenya = '$password' WHERE Usuari.Id = $this->id;";
         //Executem la consulta
         $query_run = $conn->query($sql); 
-        mysqli_close($conn);
+        
+        //tancar connexioDB
+        $conn->close();
+
         return $query_run;        
 
     }
@@ -274,7 +324,10 @@ class Usuari {
         $sql = "SELECT Usuari.NomUsuari, Usuari.Verificat FROM `Usuari` WHERE Verificat = 1;"        ;
         //Executem la consulta
         $query_run = $conn->query($sql);
-        mysqli_close($conn);
+        
+        //tancar connexioDB
+        $conn->close();
+
         return $query_run;     
     }
 
@@ -285,7 +338,10 @@ class Usuari {
         $sql = "SELECT Usuari.NomUsuari, Usuari.Verificat FROM `Usuari` WHERE Verificat = 0";
 
         $query_run = mysqli_query($conn, $sql);
-        mysqli_close($conn);
+        
+        //tancar connexioDB
+        $conn->close();
+
         return $query_run;     
 
     }
@@ -296,7 +352,10 @@ class Usuari {
         $sql = "SELECT NomUsuari as 'user' FROM Usuari WHERE Acceptat = 0";
         
         $query_run = mysqli_query($conn, $sql);
-        mysqli_close($conn);
+        
+        //tancar connexioDB
+        $conn->close();
+        
         return $query_run;     
 
     }
