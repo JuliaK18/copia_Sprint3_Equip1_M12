@@ -382,7 +382,7 @@ class Usuari {
         return $insertQuery->execute();
     }
 
-    public static function get_users_not_verified($nom_usuari) {
+    public static function get_users_not_verified() {
         include_once '../../PHP/connect.php';
 
         // Recuperem tots els usuaris sense verificar

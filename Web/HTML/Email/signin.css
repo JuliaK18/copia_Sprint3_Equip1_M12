@@ -1,0 +1,31 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
+#header{
+    height: 15vh;
+}
+
+
+#container{
+    min-height: 70vh;
+}
+
+#recovery{
+    display:flex;
+    justify-content: center;
+    text-decoration: underline;
+    color: black;
+    padding-bottom: 5%;
+}
+
+#logo{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#footer{
+    height: 15vh;
+}

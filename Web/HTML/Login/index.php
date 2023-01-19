@@ -21,12 +21,12 @@
     </div>
   </header>
 
+
   <main>
     <div class="container-fluid d-flex align-items-center justify-content-center" id="container">
       <div class="row d-flex justify-content-center">
         <form class="col-10 col-sm-10 col-md-12 col-lg-12 col-xl-12 col-xxl-12" action="../../PHP/login.php" method="post">
-          <div id="buttonDiv" onclick="client.requestCode()"></div> 
-        
+          
           <div class="tittle">
             <img src="../icons/mirmit.png" alt="" style="height: auto; width: 100%" />
           </div>
@@ -40,12 +40,17 @@
             <span class="input-group-text" id="addon-wrapping"><i class="fa fa-lock"></i></span>
             <input type="password" class="form-control" placeholder="Contraseña" name="password" aria-label="Password" aria-describedby="addon-wrapping" />
           </div>
-
+          <br>
+          <a href="../Recovery/index.php" class="d-flex justify-content-center text-decoration-underline" id="recovery" target="_blank">Recuperar contraseña</a>
+          
           <div class="row d-flex justify-content-center pt-3">
-            <a href="../Recovery/index.php" class="d-flex justify-content-center text-decoration-underline" id="recovery" target="_blank">Recuperar contraseña</a>
             <button type="submit" class="btn btn-dark" style="width: 55%">
               Iniciar sesión
             </button>
+          </div>
+
+          <div class="d-flex justify-content-center pt-3">
+            <div id="buttonDiv" onclick="client.requestCode()"></div> 
           </div>
         </form>
       </div>
@@ -92,7 +97,7 @@
           });
           google.accounts.id.renderButton(
             document.getElementById("buttonDiv"),
-            { theme: "outline", size: "large", type: 'icon' }  // customization attributes
+            { theme: "outline", size: "large" }  // customization attributes
           );
         }
     </script>

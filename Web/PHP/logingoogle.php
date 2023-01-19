@@ -22,6 +22,7 @@ if ($payload) {
     session_start();
     $_SESSION['email'] = $email;
     $_SESSION['given_name'] = $given_name;
+    //$_SESSION['id_user'] = $user->get_id();
 
     echo json_encode(array('ok' => true, 'exists' => $user->exists_user()));
 

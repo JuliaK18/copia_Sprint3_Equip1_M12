@@ -10,5 +10,8 @@ $hash = $_GET['hash'];
 $user = new Usuari($hash);
 $user->validate_email();
 
+session_start();
+$_SESSION['validated'] = 'true';
+
 header('location: ../../HTML/Login');
 ?>

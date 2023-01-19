@@ -147,6 +147,30 @@
         </div>
       </div>
     </main>
+      <!-- Toasts -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div id="errorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header toast-error">
+          <strong class="me-auto">Pymeshield</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="errorToastMessage">
+          No cumples los criterios
+        </div>
+      </div>
+    </div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header toast-error">
+          <strong class="me-auto">Pymeshield</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="errorToastMessage">
+          ¡El usuario se ha creado! Revisa el correo
+        </div>
+      </div>
+    </div>
+  </div>
     <footer></footer>
     <script src="script.js"></script>
     <script src="../Validacions/main.js"></script>

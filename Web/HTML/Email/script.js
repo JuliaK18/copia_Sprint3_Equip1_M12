@@ -29,14 +29,11 @@ async function register() {
             'Content-Type': 'application/json'
         }
     })
-    id('registerButton').disabled = 'true'
+
     if (response.ok) {
         let data = await response.json()
-        if (data.ok) {
-            location.href = '../Email'
-        }
+        console.log(data)
     } else {
-        let toast = new bootstrap.Toast(id('errorToast'))
-        toast.show()
+        console.log('error')
     }
 }
