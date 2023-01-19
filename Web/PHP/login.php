@@ -25,6 +25,7 @@ $accepted = $user->login();
 
 if ($accepted) {
     echo 'Hello, ' . $username;
+    
 } else {
     header('Location: ../HTML/Login?error=true');
 }
