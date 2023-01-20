@@ -1,12 +1,12 @@
 <?php
 include_once './Classes/Class_Usuaris.php';
 
-include_once './global.php';
+//include_once './global.php';
 
 $usermail = $_POST['usermail'];
 $password = $_POST['password'];
 #$ID = $_POST['userid'];
-$ID = 1; #hardcoded
+$ID = 17; #hardcoded
 
 
 $usuari = new Usuari($ID);
